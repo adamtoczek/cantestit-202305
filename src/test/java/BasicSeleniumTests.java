@@ -4,12 +4,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +29,7 @@ public class BasicSeleniumTests {
         options.addArguments("start-maximized");
         //options.addArguments("--headless");
         driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
@@ -130,6 +134,20 @@ public class BasicSeleniumTests {
         //actions.clickAndHold().moveToElement().release().build().perform();
 
         assertEquals(droppable.getText(), "Dropped!");
+    }
+
+
+    @Test
+    public void delayedAlertTest() {
+        driver.get("http://qac.com.pl/alerts.html");
+        driver.findElement(By.cssSelector("#dAlert button")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+
+
+
     }
 
     @AfterClass
