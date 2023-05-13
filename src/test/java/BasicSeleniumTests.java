@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -115,6 +116,20 @@ public class BasicSeleniumTests {
 
 
         Thread.sleep(5000);
+    }
+
+    @Test
+    public void dragAndDropTest() {
+        driver.get("http://qac.com.pl/drag.html");
+        Actions actions = new Actions(driver);
+
+        WebElement draggable = driver.findElement(By.id("draggable"));
+        WebElement droppable = driver.findElement(By.id("droppable"));
+        actions.dragAndDrop(draggable,droppable).build().perform();
+
+        //actions.clickAndHold().moveToElement().release().build().perform();
+
+        assertEquals(droppable.getText(), "Dropped!");
     }
 
     @AfterClass
