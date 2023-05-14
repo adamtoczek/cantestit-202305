@@ -20,17 +20,8 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class BasicSeleniumTests {
-    WebDriver driver;
+public class BasicSeleniumTests extends BaseTest{
 
-    @BeforeClass
-    public void setupWebdriver() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        //options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
 
     @Test
     public void alertTest() {
@@ -163,9 +154,6 @@ public class BasicSeleniumTests {
 
 
     }
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
-    }
+
 
 }
