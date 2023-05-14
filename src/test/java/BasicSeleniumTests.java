@@ -145,11 +145,24 @@ public class BasicSeleniumTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
+    }
+
+    @Test
+    public void delayedButton(){
+        driver.get("http://qac.com.pl/selectors/");
+
+        WebElement img = driver.findElement(By.cssSelector("section:last-of-type img"));
+        WebElement btn = driver.findElement(By.cssSelector("section:last-of-type button"));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        wait.until(ExpectedConditions.elementToBeClickable(btn));
+        btn.click();
+
+        assertTrue(img.isDisplayed());
 
 
 
     }
-
     @AfterClass
     public void tearDown() {
         driver.quit();
